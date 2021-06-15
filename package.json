@@ -1,0 +1,65 @@
+{
+  "name": "climber",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "ember:build": "cd climber && ember build --environment=production",
+    "ember:start": "cd climber && ember serve",
+    "start": "sleep 5 && electron-forge start",
+    "start:prod": "npm run ember:build && start",
+    "start:dev": "NODE_ENV=development npm-run-all --parallel ember:start start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "electron-forge package",
+    "make": "npm run build && electron-forge make"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://epborden@github.com/epborden/climber.git"
+  },
+  "author": "Evan Borden & Steven Shepherd",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/epborden/climber/issues"
+  },
+  "homepage": "https://github.com/epborden/climber#readme",
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.57",
+    "@electron-forge/maker-deb": "^6.0.0-beta.57",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.57",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.57",
+    "@electron-forge/maker-zip": "^6.0.0-beta.57",
+    "electron": "^13.1.2",
+    "npm-run-all": "^4.1.5"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "climber"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
+}
