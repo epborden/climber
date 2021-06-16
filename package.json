@@ -1,65 +1,47 @@
 {
   "name": "climber",
+  "productName": "Climber",
   "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
+  "description": "Sandbox app using Electron, Ember, and C++.",
+  "main": ".webpack/main",
   "scripts": {
-    "ember:build": "cd climber && ember build --environment=production",
-    "ember:start": "cd climber && ember serve",
-    "start": "sleep 5 && electron-forge start",
-    "start:prod": "npm run ember:build && start",
-    "start:dev": "NODE_ENV=development npm-run-all --parallel ember:start start",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "package": "electron-forge package",
-    "make": "npm run build && electron-forge make"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://epborden@github.com/epborden/climber.git"
+    "build": "npm run ember:build:packaged && npm run electron:make && npm run electron:package",
+    "dev": "npm-run-all --parallel ember:start electron:start",
+    "dev:packaged": "npm run ember:build:unpackaged && npm run electron:start:packaged",
+    "electron:start": "ELECTRON_ENV=development electron-forge start",
+    "electron:start:packaged": "ELECTRON_ENV=production electron-forge start",
+    "electron:package": "electron-forge package",
+    "electron:make": "electron-forge make",
+    "electron:publish": "electron-forge publish",
+    "electron:lint": "echo \"No linting configured\"",
+    "ember:build": "cd src/front/climber && ember build --environment=production",
+    "ember:build:unpackaged": "ELECTRON_PACKAGED=false npm run ember:build",
+    "ember:build:packaged": "ELECTRON_PACKAGED=true npm run ember:build",
+    "ember:start": "cd src/front/climber && ember serve"
   },
   "author": "Evan Borden & Steven Shepherd",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/epborden/climber/issues"
-  },
-  "homepage": "https://github.com/epborden/climber#readme",
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.57",
     "@electron-forge/maker-deb": "^6.0.0-beta.57",
+    "@electron-forge/maker-dmg": "^6.0.0-beta.57",
     "@electron-forge/maker-rpm": "^6.0.0-beta.57",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.57",
     "@electron-forge/maker-zip": "^6.0.0-beta.57",
-    "electron": "^13.1.2",
-    "npm-run-all": "^4.1.5"
+    "@electron-forge/plugin-webpack": "^6.0.0-beta.57",
+    "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
+    "copy-webpack-plugin": "^9.0.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^5.2.6",
+    "electron": "13.1.2",
+    "file-loader": "^6.2.0",
+    "node-loader": "^2.0.0",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.35.1",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^2.0.0"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0"
-  },
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "climber"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
   }
 }

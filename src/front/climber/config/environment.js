@@ -1,15 +1,12 @@
 'use strict';
 
-const path = require('path');
-
 module.exports = function (environment) {
-  const isProduction = environment === 'production';
-
   let ENV = {
     modulePrefix: 'climber',
     environment,
-    rootURL: isProduction ? path.join(__dirname, '../dist') : '/',
-    locationType: 'auto',
+    rootURL: '/',
+    // Use 'hash' location type to be compatible with Electron.
+    locationType: 'hash',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -47,7 +44,7 @@ module.exports = function (environment) {
     ENV.APP.autoboot = false;
   }
 
-  if (isProduction) {
+  if (environment === 'production') {
     // here you can enable a production-specific feature
   }
 

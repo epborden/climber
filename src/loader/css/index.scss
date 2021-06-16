@@ -1,0 +1,22 @@
+$lighterGreen: #47DA74;
+$lightGreen: #1EC464;
+$green: #23904F;
+$lightBrown: #554124;
+$brown: #3C2515;
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background: $green url('../images/logo.png') center center no-repeat;
+    background-size: 50%;
+}
+
+#loader-text {
+    color: #ffffff;
+    position: absolute;
+    bottom: 100px;
+    text-align: center;
+    width: 100%;
+}
